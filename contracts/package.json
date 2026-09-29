@@ -1,0 +1,1 @@
+{"name":"tribe-contracts","private":true,"scripts":{"test":"hardhat test"},"devDependencies":{"@nomicfoundation/hardhat-chai-matchers":"^2.1.2","@nomicfoundation/hardhat-ethers":"^3.1.3","@openzeppelin/contracts":"^5.1.0","chai":"^4.5.0","ethers":"^6.17.0","hardhat":"^2.29.1"}}
