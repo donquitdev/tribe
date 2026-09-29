@@ -9,6 +9,7 @@
 
 <p align="center">
   <a href="https://gettribe.fun"><img src="https://img.shields.io/badge/live%20demo-gettribe.fun-C4F135?style=for-the-badge&labelColor=161A14" alt="Live demo"></a>
+  <a href="https://x.com/Gettribedotfun"><img src="https://img.shields.io/badge/follow-%40Gettribedotfun-000000?style=for-the-badge&logo=x&labelColor=161A14" alt="Follow on X"></a>
   <img src="https://img.shields.io/badge/chain-Robinhood%20Chain-1FA23A?style=for-the-badge&labelColor=161A14" alt="Robinhood Chain">
   <img src="https://img.shields.io/badge/solidity-0.8.28-363636?style=for-the-badge&logo=solidity&labelColor=161A14" alt="Solidity 0.8.28">
   <img src="https://img.shields.io/badge/languages-EN%20%C2%B7%20%E4%B8%AD%E6%96%87%20%C2%B7%20%ED%95%9C%EA%B5%AD%EC%96%B4-4DA8FF?style=for-the-badge&labelColor=161A14" alt="Languages">
@@ -239,5 +240,5 @@ The website currently runs in **demo mode**: prices, trades, wars and Real Tribe
 <p align="center">
   <img src="site/brand/logo-96.png" width="48" alt="TRIBE logo"><br>
   <b>Good tribes build great things.</b><br>
-  <a href="https://gettribe.fun">gettribe.fun</a>
+  <a href="https://gettribe.fun">gettribe.fun</a> · <a href="https://x.com/Gettribedotfun">@Gettribedotfun</a>
 </p>
