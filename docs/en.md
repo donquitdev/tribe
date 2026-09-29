@@ -49,6 +49,21 @@ The Launch wizard has 8 steps and a live preview of your tribe card:
 
 After launch your tribe gets its own page, a Market listing, and a trade page. You can edit your links at any time.
 
+## Stock pairs
+Robinhood Chain carries tokenized stocks and ETFs. TRIBE lets you pair your tribe's pool with one of them instead of ETH, so buyers pay in a real-world asset and the pool holds it.
+
+- **Choose the pair at launch** (step 6): ETH, or NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ or GLD.
+
+- **Buying and selling** happen in the paired asset. A $BANANA / NVDA pool takes NVDA in and pays NVDA out.
+
+- **Live prices.** Stock prices are read from each stock's pool on Robinhood Chain and refresh every minute. Market caps are shown in US dollars so ETH and stock pairs compare directly.
+
+- **The pair is fixed** once the tribe is launched.
+
+- **Market filters** show all pairs, ETH pairs or stock pairs.
+
+Tokenized stocks track the price of the underlying share, so a stock-paired tribe also moves with that stock. In demo mode you get about $3,000 of each stock to try trades; nothing is sent on-chain.
+
 ## Tokenomics
 | Allocation | Share | What happens to it |
 | --- | --- | --- |

@@ -1652,7 +1652,7 @@ const Data = {
 
 /* Demo market: each token gets a virtual constant-product pool (1% fee) that
    demo trades move. Replace with pool reads once contracts exist. */
-const ETH_USD = 3000;
+let ETH_USD = 3000; // replaced by the live WETH/USDG price when /api/stocks answers
 /* Pairs. A tribe's pool can be paired with ETH or with a tokenized stock on Robinhood Chain.
    Stock prices refresh from /api/stocks (read from each stock's pool on-chain); these are fallbacks. */
 const STOCKS = [
@@ -1688,6 +1688,7 @@ const Quote = {
   async load(){
     try {
       const r = await Remote.req('GET', '/stocks');
+      if (r && r.ethUsd > 100 && r.ethUsd < 1e5) ETH_USD = r.ethUsd;
       for (const x of (r && r.stocks) || []) { const st = Quote.get(x.symbol); if (st && x.usd > 0) st.usd = x.usd; }
       Quote.live = true; return true;
     } catch (e) { return false; }
