@@ -34,6 +34,7 @@ Most launchpads stop at "create a token". TRIBE starts there. It rewards communi
 | --- | --- |
 | 🚫 **No creator allocation** | The creator gets 0% of supply. Nothing to dump on holders. |
 | 💧 **Tradable from minute one** | 80% of supply seeds the liquidity pool at launch. |
+| 📈 **Backed by real stocks** | Pair a tribe with a tokenized stock like NVDA or TSLA instead of ETH, in line with Robinhood Chain's vision of on-chain equities. |
 | 🏆 **Rewards go to holders** | 20% is locked in a War Chest that only pays out to holders of a tribe that wins a Tribe War. |
 | 🗳️ **Sybil-resistant voting** | Votes are weighted by tokens held at a hidden snapshot. Splitting a bag across 10,000 wallets adds nothing. |
 | 🔍 **Real Tribe transparency** | Same ticker, many tokens? Real Tribe shows which one has the real community, with every number visible. |
@@ -43,6 +44,7 @@ Most launchpads stop at "create a token". TRIBE starts there. It rewards communi
 
 - **Launch wizard.** 8 steps with a live card preview: name, ticker, mascot (templates or your own image), colors, description and links (X, website, Telegram), supply, review, launch.
 - **Tribes.** Each tribe has its own page with level, members, treasury, Tribe Power, activity feed, links and active wars.
+- **Stock pairs.** Pair your tribe with ETH or a tokenized stock on Robinhood Chain: NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ or GLD. Buyers pay in that asset, with live prices read on-chain.
 - **Market.** Every tribe is listed with price, market cap, liquidity, volume and a chart, plus a buy and sell panel.
 - **Tribe Wars.** Tribes challenge each other, holders vote with their tokens and the winner takes the prize. A live carousel on the home page shows the 5 hottest wars.
 - **Real Tribe.** A community score and a clean-launch (bundle) score for any token, from any launchpad.
@@ -203,6 +205,7 @@ location /api/ {
 | `GET` | `/api/tribes` | All launched tribes |
 | `POST` | `/api/tribes` | Launch a tribe; returns an edit key for the creator |
 | `PATCH` | `/api/tribes/:id/links` | Update links (requires `X-Edit-Key`) |
+| `GET` | `/api/stocks` | Live USD prices of the pairable stock tokens |
 | `GET` | `/api/realtribe` | Registered tokens |
 | `POST` | `/api/realtribe` | Register a token |
 

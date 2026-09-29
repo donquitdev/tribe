@@ -7,6 +7,7 @@ create table public.tribes (
   palette text not null check (palette in ('banana','pizza','frog','duck','cat','alien','mint','night')),
   description text not null check (char_length(description) between 10 and 200),
   supply bigint not null check (supply in (100000000, 1000000000, 10000000000)),
+  pair text not null default 'ETH' check (pair in ('ETH','NVDA','TSLA','AAPL','META','COIN','MSTR','SPY','QQQ','GLD')),
   image_url text,
   links jsonb not null default '{}'::jsonb,
   creator text check (creator is null or creator ~ '^0x[0-9a-fA-F]{40}$'),

@@ -27,6 +27,14 @@ en: { title: 'TRIBE Docs', intro: 'Everything about TRIBE in one place: what it 
 <p>The Launch wizard has 8 steps and a live preview of your tribe card:</p>
 <ol><li><b>Name</b> (3 to 24 characters).</li><li><b>Ticker</b> (2 to 8 letters or numbers, unique on TRIBE).</li><li><b>Mascot</b>: pick a template or upload an image (PNG, JPG or WebP, up to 800 KB).</li><li><b>Colors</b>: the palette for your card, profile and war banner.</li><li><b>Description and links</b>: a short description plus optional X account, website and Telegram. Links are checked and only valid https addresses are accepted.</li><li><b>Token supply</b>: 100M, 1B or 10B.</li><li><b>Review</b> everything.</li><li><b>Launch</b>.</li></ol>
 <p>After launch your tribe gets its own page, a Market listing, and a trade page. You can edit your links at any time.</p>`],
+['pairs', 'Stock pairs', `
+<p>Robinhood Chain carries tokenized stocks and ETFs. TRIBE lets you pair your tribe's pool with one of them instead of ETH, so buyers pay in a real-world asset and the pool holds it.</p>
+<ul><li><b>Choose the pair at launch</b> (step 6): ETH, or NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ or GLD.</li>
+<li><b>Buying and selling</b> happen in the paired asset. A $BANANA / NVDA pool takes NVDA in and pays NVDA out.</li>
+<li><b>Live prices.</b> Stock prices are read from each stock's pool on Robinhood Chain and refresh every minute. Market caps are shown in US dollars so ETH and stock pairs compare directly.</li>
+<li><b>The pair is fixed</b> once the tribe is launched.</li>
+<li><b>Market filters</b> show all pairs, ETH pairs or stock pairs.</li></ul>
+<p>Tokenized stocks track the price of the underlying share, so a stock-paired tribe also moves with that stock. In demo mode you get about $3,000 of each stock to try trades; nothing is sent on-chain.</p>`],
 ['tokenomics', 'Tokenomics', `
 <table class="dtable"><tr><th>Allocation</th><th>Share</th><th>What happens to it</th></tr>
 <tr><td>Liquidity pool</td><td>80%</td><td>Seeds the trading pool so the token is tradable from the first minute.</td></tr>
@@ -135,6 +143,14 @@ zh: { title: 'TRIBE 文档', intro: '关于 TRIBE 的一切：它是什么、为
 <p>发射向导共有 8 个步骤，并实时预览你的部落卡片：</p>
 <ol><li><b>名称</b>（3 到 24 个字符）。</li><li><b>代号</b>（2 到 8 个字母或数字，在 TRIBE 上唯一）。</li><li><b>吉祥物</b>：选择模板或上传图片（PNG、JPG 或 WebP，最大 800 KB）。</li><li><b>配色</b>：用于卡片、主页和战争横幅的调色板。</li><li><b>描述与链接</b>：简短描述，以及可选的 X 账号、网站和 Telegram。链接会经过检查，只接受有效的 https 地址。</li><li><b>代币供应量</b>：1 亿、10 亿或 100 亿。</li><li><b>检查</b>所有内容。</li><li><b>发射</b>。</li></ol>
 <p>发射后，你的部落会拥有自己的页面、市场列表和交易页面。你可以随时编辑链接。</p>`],
+['pairs', '股票交易对', `
+<p>Robinhood Chain 上有代币化的股票和 ETF。TRIBE 允许你把部落的资金池与其中一只配对，而不是 ETH，这样买家用真实世界资产支付，资金池也持有该资产。</p>
+<ul><li><b>发射时选择交易对</b>（第 6 步）：ETH，或 NVDA、TSLA、AAPL、META、COIN、MSTR、SPY、QQQ、GLD。</li>
+<li><b>买卖</b>都使用配对资产。$BANANA / NVDA 池收入 NVDA，也支付 NVDA。</li>
+<li><b>实时价格。</b>股票价格从 Robinhood Chain 上各股票的资金池读取，每分钟刷新。市值以美元显示，方便比较 ETH 与股票交易对。</li>
+<li><b>交易对在部落发射后固定</b>，不能更改。</li>
+<li><b>市场筛选</b>可显示全部、ETH 交易对或股票交易对。</li></ul>
+<p>代币化股票跟随标的股票价格，因此股票配对的部落也会随该股票波动。演示模式下每只股票会给你约 3,000 美元用于试用交易，不会发送任何链上交易。</p>`],
 ['tokenomics', '代币经济', `
 <table class="dtable"><tr><th>分配</th><th>比例</th><th>用途</th></tr>
 <tr><td>流动性池</td><td>80%</td><td>注入交易池，让代币从第一分钟起即可交易。</td></tr>
@@ -243,6 +259,14 @@ ko: { title: 'TRIBE 문서', intro: 'TRIBE에 대한 모든 것: 무엇인지, �
 <p>런칭 마법사는 8단계로 구성되며 트라이브 카드를 실시간으로 미리 보여 줍니다:</p>
 <ol><li><b>이름</b> (3~24자).</li><li><b>티커</b> (영문자 또는 숫자 2~8자, TRIBE에서 고유).</li><li><b>마스코트</b>: 템플릿을 고르거나 이미지를 업로드 (PNG, JPG, WebP, 최대 800 KB).</li><li><b>색상</b>: 카드, 프로필, 전쟁 배너에 쓰일 팔레트.</li><li><b>설명과 링크</b>: 짧은 설명과 선택 사항인 X 계정, 웹사이트, 텔레그램. 링크는 검사되며 유효한 https 주소만 허용됩니다.</li><li><b>토큰 공급량</b>: 1억, 10억 또는 100억.</li><li>모든 내용 <b>검토</b>.</li><li><b>런칭</b>.</li></ol>
 <p>런칭 후 트라이브는 자체 페이지, 마켓 목록, 거래 페이지를 갖게 됩니다. 링크는 언제든 수정할 수 있습니다.</p>`],
+['pairs', '주식 페어', `
+<p>Robinhood Chain에는 토큰화된 주식과 ETF가 있습니다. TRIBE에서는 트라이브의 풀을 ETH 대신 이들 중 하나와 페어로 만들 수 있어, 구매자는 실물 자산으로 결제하고 풀도 그 자산을 보유합니다.</p>
+<ul><li><b>런칭 시 페어 선택</b> (6단계): ETH 또는 NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ, GLD.</li>
+<li><b>매수와 매도</b>는 페어 자산으로 이루어집니다. $BANANA / NVDA 풀은 NVDA를 받고 NVDA로 지급합니다.</li>
+<li><b>실시간 가격.</b> 주식 가격은 Robinhood Chain의 각 주식 풀에서 읽어 1분마다 갱신됩니다. 시가총액은 달러로 표시되어 ETH 페어와 주식 페어를 바로 비교할 수 있습니다.</li>
+<li><b>페어는 런칭 후 고정</b>되어 바꿀 수 없습니다.</li>
+<li><b>마켓 필터</b>로 전체, ETH 페어, 주식 페어를 볼 수 있습니다.</li></ul>
+<p>토큰화된 주식은 기초 주식 가격을 따르므로 주식 페어 트라이브도 그 주식과 함께 움직입니다. 데모 모드에서는 각 주식을 약 3,000달러어치 받아 거래를 체험할 수 있으며 온체인으로는 아무것도 전송되지 않습니다.</p>`],
 ['tokenomics', '토크노믹스', `
 <table class="dtable"><tr><th>할당</th><th>비율</th><th>용도</th></tr>
 <tr><td>유동성 풀</td><td>80%</td><td>거래 풀을 채워 첫 순간부터 토큰을 거래할 수 있게 합니다.</td></tr>

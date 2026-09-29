@@ -230,6 +230,18 @@ h1,h2,h3,h4{font-family:var(--display);margin:0;line-height:1.08;text-wrap:balan
 .foot .built svg{width:20px;height:20px}
 .foot .brand{display:flex;flex-direction:column;align-items:center;gap:10px}
 .socials{display:flex;gap:8px}
+.qicon{width:18px;height:18px;border-radius:50%;vertical-align:-4px;flex:none;object-fit:cover;background:#fff}
+.pairtag{display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 8px 1px 3px;margin-left:4px;font-size:12px}
+.pairtag .qicon{width:14px;height:14px}
+.pairb{display:inline-flex;align-items:center;gap:6px}
+.pairchips{margin:-6px 0 14px}
+.pairgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:4px 0 16px}
+.pairopt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;min-width:0}
+.pairopt .qicon{width:28px;height:28px;margin-bottom:2px}
+.pairopt b{font-size:14px}
+.pairopt small{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.pairopt.on{border-color:var(--ink);background:#F3FCD9;box-shadow:0 0 0 2px #C4F135}
+@media (max-width:640px){.pairgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .socials button,.socials a{color:inherit;width:38px;height:38px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;transition:transform .15s,border-color .15s}
 .socials button:hover,.socials a:hover{transform:translateY(-2px);border-color:var(--ink)}
 .socials svg{width:18px;height:18px}
@@ -933,6 +945,11 @@ const I18N = {
     'Your TRIBE launches:': ['你在 TRIBE 发射的代币：', '내 TRIBE 런칭:'], 'Token contract address': ['代币合约地址', '토큰 컨트랙트 주소'], 'Token name': ['代币名称', '토큰 이름'], 'Register': ['登记', '등록'],
     'Enter a token contract address: 0x followed by 40 hex characters.': ['请输入代币合约地址：0x 后跟 40 个十六进制字符。', '토큰 컨트랙트 주소를 입력하세요: 0x 뒤에 16진수 40자.'], 'Ticker: 2 to 10 letters or numbers.': ['代号：2 到 10 个字母或数字。', '티커: 영문자 또는 숫자 2~10자.'], 'Give the token a name.': ['请为代币命名。', '토큰 이름을 입력하세요.'], 'That token is already registered.': ['该代币已登记。', '이미 등록된 토큰입니다.'],
     'Other launchpad': ['其他发射平台', '다른 런치패드'], 'Registered by you': ['由你登记', '내가 등록함'],
+    'Pair with': ['配对资产', '페어 자산'], 'Pool pair': ['资金池交易对', '풀 페어'], 'Pair': ['交易对', '페어'], 'Stock pairs': ['股票交易对', '주식 페어'],
+    'All pairs': ['全部交易对', '전체 페어'], 'ETH pairs': ['ETH 交易对', 'ETH 페어'], 'Ether': ['以太坊', '이더리움'],
+    'Buyers pay in this asset and the pool holds it. Pick ETH, or a tokenized stock on Robinhood Chain to back your tribe with a real-world asset.': ['买家用该资产支付，资金池也持有它。选择 ETH，或 Robinhood Chain 上的代币化股票，让你的部落以真实世界资产为后盾。', '구매자는 이 자산으로 결제하고 풀이 이를 보유합니다. ETH 또는 Robinhood Chain의 토큰화된 주식을 골라 트라이브를 실물 자산으로 뒷받침하세요.'],
+    'Pair with ETH or one of the listed stocks.': ['请选择 ETH 或列表中的股票作为交易对。', 'ETH 또는 목록의 주식과 페어로 만드세요.'],
+    'Gold ETF': ['黄金 ETF', '금 ETF'], 'S&P 500 ETF': ['标普 500 ETF', 'S&P 500 ETF'], 'Nasdaq-100 ETF': ['纳斯达克 100 ETF', '나스닥 100 ETF'],
     'Registered by the community': ['由社区登记', '커뮤니티가 등록함'], 'Saving tribe for every visitor': ['为所有访客保存部落', '모든 방문자를 위해 트라이브 저장'],
     '✓ Saving tribe for every visitor': ['✓ 为所有访客保存部落', '✓ 모든 방문자를 위해 트라이브 저장'], '○ Saving tribe for every visitor': ['○ 为所有访客保存部落', '○ 모든 방문자를 위해 트라이브 저장'],
     'Use a PNG, JPG or WebP image.': ['请使用 PNG、JPG 或 WebP 图片。', 'PNG, JPG 또는 WebP 이미지를 사용하세요.'],
@@ -1003,6 +1020,12 @@ const I18N = {
     [/^#(\d+) of (\d+) (\$\S+) · community (\d+) · bundle (\d+)$/, '$3 第 $1 名（共 $2）· 社区 $4 · 捆绑 $5', '$3 $2개 중 $1위 · 커뮤니티 $4 · 번들 $5'],
     [/^(\S+) community$/, '$1 社区', '$1 커뮤니티'],
     [/^No token uses (\$\S+)\.$/, '没有代币使用 $1。', '$1을(를) 쓰는 토큰이 없습니다.'], [/^No tribe uses the ticker (\$\S+) yet\.$/, '还没有部落使用代号 $1。', '아직 티커 $1을(를) 쓰는 트라이브가 없습니다.'],
+    [/^(\S+) price$/, '$1 价格', '$1 가격'],
+    [/^Get ([\d.,]+) demo (\S+)$/, '领取 $1 演示 $2', '데모 $2 $1 받기'],
+    [/^([\d.,]+) demo (\S+) added$/, '已添加 $1 演示 $2', '데모 $2 $1 추가됨'],
+    [/^You have ([\d.,]+) demo (\S+)\.$/, '你有 $1 演示 $2。', '데모 $2 $1 보유 중입니다.'],
+    [/^Sold for ([\d.,]+) (\S+)$/, '卖出获得 $1 $2', '$1 $2에 매도'],
+    [/^(\S+) per token$/, '每枚代币 $1', '토큰당 $1'],
     [/^(\$\S+) is already taken by another tribe\.$/, '$1 已被其他部落使用。', '$1은(는) 이미 다른 트라이브가 사용 중입니다.'],
     [/^(\$\S+) registered in Real Tribe$/, '$1 已登记到真实部落', '$1 리얼 트라이브에 등록됨'], [/^(\$\S+) registered$/, '$1 已登记', '$1 등록됨'],
     [/^Invite code (\S+) copied$/, '邀请码 $1 已复制', '초대 코드 $1 복사됨'], [/^Your invite code: (\S+)$/, '你的邀请码：$1', '내 초대 코드: $1'], [/^TRIBE on (\S+) is coming soon$/, 'TRIBE 的 $1 即将上线', 'TRIBE $1 곧 오픈'],
@@ -1106,6 +1129,14 @@ en: { title: 'TRIBE Docs', intro: 'Everything about TRIBE in one place: what it 
 <p>The Launch wizard has 8 steps and a live preview of your tribe card:</p>
 <ol><li><b>Name</b> (3 to 24 characters).</li><li><b>Ticker</b> (2 to 8 letters or numbers, unique on TRIBE).</li><li><b>Mascot</b>: pick a template or upload an image (PNG, JPG or WebP, up to 800 KB).</li><li><b>Colors</b>: the palette for your card, profile and war banner.</li><li><b>Description and links</b>: a short description plus optional X account, website and Telegram. Links are checked and only valid https addresses are accepted.</li><li><b>Token supply</b>: 100M, 1B or 10B.</li><li><b>Review</b> everything.</li><li><b>Launch</b>.</li></ol>
 <p>After launch your tribe gets its own page, a Market listing, and a trade page. You can edit your links at any time.</p>`],
+['pairs', 'Stock pairs', `
+<p>Robinhood Chain carries tokenized stocks and ETFs. TRIBE lets you pair your tribe's pool with one of them instead of ETH, so buyers pay in a real-world asset and the pool holds it.</p>
+<ul><li><b>Choose the pair at launch</b> (step 6): ETH, or NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ or GLD.</li>
+<li><b>Buying and selling</b> happen in the paired asset. A $BANANA / NVDA pool takes NVDA in and pays NVDA out.</li>
+<li><b>Live prices.</b> Stock prices are read from each stock's pool on Robinhood Chain and refresh every minute. Market caps are shown in US dollars so ETH and stock pairs compare directly.</li>
+<li><b>The pair is fixed</b> once the tribe is launched.</li>
+<li><b>Market filters</b> show all pairs, ETH pairs or stock pairs.</li></ul>
+<p>Tokenized stocks track the price of the underlying share, so a stock-paired tribe also moves with that stock. In demo mode you get about $3,000 of each stock to try trades; nothing is sent on-chain.</p>`],
 ['tokenomics', 'Tokenomics', `
 <table class="dtable"><tr><th>Allocation</th><th>Share</th><th>What happens to it</th></tr>
 <tr><td>Liquidity pool</td><td>80%</td><td>Seeds the trading pool so the token is tradable from the first minute.</td></tr>
@@ -1214,6 +1245,14 @@ zh: { title: 'TRIBE 文档', intro: '关于 TRIBE 的一切：它是什么、为
 <p>发射向导共有 8 个步骤，并实时预览你的部落卡片：</p>
 <ol><li><b>名称</b>（3 到 24 个字符）。</li><li><b>代号</b>（2 到 8 个字母或数字，在 TRIBE 上唯一）。</li><li><b>吉祥物</b>：选择模板或上传图片（PNG、JPG 或 WebP，最大 800 KB）。</li><li><b>配色</b>：用于卡片、主页和战争横幅的调色板。</li><li><b>描述与链接</b>：简短描述，以及可选的 X 账号、网站和 Telegram。链接会经过检查，只接受有效的 https 地址。</li><li><b>代币供应量</b>：1 亿、10 亿或 100 亿。</li><li><b>检查</b>所有内容。</li><li><b>发射</b>。</li></ol>
 <p>发射后，你的部落会拥有自己的页面、市场列表和交易页面。你可以随时编辑链接。</p>`],
+['pairs', '股票交易对', `
+<p>Robinhood Chain 上有代币化的股票和 ETF。TRIBE 允许你把部落的资金池与其中一只配对，而不是 ETH，这样买家用真实世界资产支付，资金池也持有该资产。</p>
+<ul><li><b>发射时选择交易对</b>（第 6 步）：ETH，或 NVDA、TSLA、AAPL、META、COIN、MSTR、SPY、QQQ、GLD。</li>
+<li><b>买卖</b>都使用配对资产。$BANANA / NVDA 池收入 NVDA，也支付 NVDA。</li>
+<li><b>实时价格。</b>股票价格从 Robinhood Chain 上各股票的资金池读取，每分钟刷新。市值以美元显示，方便比较 ETH 与股票交易对。</li>
+<li><b>交易对在部落发射后固定</b>，不能更改。</li>
+<li><b>市场筛选</b>可显示全部、ETH 交易对或股票交易对。</li></ul>
+<p>代币化股票跟随标的股票价格，因此股票配对的部落也会随该股票波动。演示模式下每只股票会给你约 3,000 美元用于试用交易，不会发送任何链上交易。</p>`],
 ['tokenomics', '代币经济', `
 <table class="dtable"><tr><th>分配</th><th>比例</th><th>用途</th></tr>
 <tr><td>流动性池</td><td>80%</td><td>注入交易池，让代币从第一分钟起即可交易。</td></tr>
@@ -1322,6 +1361,14 @@ ko: { title: 'TRIBE 문서', intro: 'TRIBE에 대한 모든 것: 무엇인지, �
 <p>런칭 마법사는 8단계로 구성되며 트라이브 카드를 실시간으로 미리 보여 줍니다:</p>
 <ol><li><b>이름</b> (3~24자).</li><li><b>티커</b> (영문자 또는 숫자 2~8자, TRIBE에서 고유).</li><li><b>마스코트</b>: 템플릿을 고르거나 이미지를 업로드 (PNG, JPG, WebP, 최대 800 KB).</li><li><b>색상</b>: 카드, 프로필, 전쟁 배너에 쓰일 팔레트.</li><li><b>설명과 링크</b>: 짧은 설명과 선택 사항인 X 계정, 웹사이트, 텔레그램. 링크는 검사되며 유효한 https 주소만 허용됩니다.</li><li><b>토큰 공급량</b>: 1억, 10억 또는 100억.</li><li>모든 내용 <b>검토</b>.</li><li><b>런칭</b>.</li></ol>
 <p>런칭 후 트라이브는 자체 페이지, 마켓 목록, 거래 페이지를 갖게 됩니다. 링크는 언제든 수정할 수 있습니다.</p>`],
+['pairs', '주식 페어', `
+<p>Robinhood Chain에는 토큰화된 주식과 ETF가 있습니다. TRIBE에서는 트라이브의 풀을 ETH 대신 이들 중 하나와 페어로 만들 수 있어, 구매자는 실물 자산으로 결제하고 풀도 그 자산을 보유합니다.</p>
+<ul><li><b>런칭 시 페어 선택</b> (6단계): ETH 또는 NVDA, TSLA, AAPL, META, COIN, MSTR, SPY, QQQ, GLD.</li>
+<li><b>매수와 매도</b>는 페어 자산으로 이루어집니다. $BANANA / NVDA 풀은 NVDA를 받고 NVDA로 지급합니다.</li>
+<li><b>실시간 가격.</b> 주식 가격은 Robinhood Chain의 각 주식 풀에서 읽어 1분마다 갱신됩니다. 시가총액은 달러로 표시되어 ETH 페어와 주식 페어를 바로 비교할 수 있습니다.</li>
+<li><b>페어는 런칭 후 고정</b>되어 바꿀 수 없습니다.</li>
+<li><b>마켓 필터</b>로 전체, ETH 페어, 주식 페어를 볼 수 있습니다.</li></ul>
+<p>토큰화된 주식은 기초 주식 가격을 따르므로 주식 페어 트라이브도 그 주식과 함께 움직입니다. 데모 모드에서는 각 주식을 약 3,000달러어치 받아 거래를 체험할 수 있으며 온체인으로는 아무것도 전송되지 않습니다.</p>`],
 ['tokenomics', '토크노믹스', `
 <table class="dtable"><tr><th>할당</th><th>비율</th><th>용도</th></tr>
 <tr><td>유동성 풀</td><td>80%</td><td>거래 풀을 채워 첫 순간부터 토큰을 거래할 수 있게 합니다.</td></tr>
@@ -1523,7 +1570,7 @@ const TRIBE_CONTRACTS = { factory: null, wars: null, missions: null };
    2. STORE — demo state in localStorage (safe wrappers)
    ========================================================= */
 const KEY = 'tribe-demo-v1';
-const DEFAULT_STATE = () => ({ wallet: null, custom: [], joined: [], warsJoined: {}, customWars: [], missions: [], visited: [], invited: false, draft: null, epoch: Date.now(), pools: {}, holdings: {}, eth: null, trades: [], rtRegistered: [], rtExternal: [], editKeys: {} });
+const DEFAULT_STATE = () => ({ wallet: null, custom: [], joined: [], warsJoined: {}, customWars: [], missions: [], visited: [], invited: false, draft: null, epoch: Date.now(), pools: {}, holdings: {}, eth: null, trades: [], rtRegistered: [], rtExternal: [], editKeys: {}, qbal: {} });
 const store = {
   load(){ try { const raw = localStorage.getItem(KEY); if (raw) return Object.assign(DEFAULT_STATE(), JSON.parse(raw)); } catch(e){} return DEFAULT_STATE(); },
   save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
@@ -1546,14 +1593,14 @@ const THEMES = {
 const BASE_TRIBES = [
   {id:'banana',name:'Banana Tribe',ticker:'BANANA',level:18,members:12400,treasury:842000,activity:78,power:12842,mascot:'banana',theme:'banana',created:'2026-07-02',desc:'The OG potassium-powered crew. Banana holders meme hard, vote fast, and never slip on a raid.'},
   {id:'pizza',name:'Pizza Tribe',ticker:'PIZZA',level:12,members:8700,treasury:521000,activity:64,power:10521,mascot:'pizza',theme:'pizza',created:'2026-07-10',desc:'Every slice counts. Pizza Tribe shares the treasury like a Friday night box, and nobody takes the last piece.'},
-  {id:'frog',name:'Frog Tribe',ticker:'FROG',level:9,members:6300,treasury:318000,activity:51,power:8776,mascot:'frog',theme:'frog',created:'2026-07-21',desc:'Chill pond energy with a loud chorus. Frogs hop between missions and croak the loudest in every war.'},
+  {id:'frog',pair:'TSLA',name:'Frog Tribe',ticker:'FROG',level:9,members:6300,treasury:318000,activity:51,power:8776,mascot:'frog',theme:'frog',created:'2026-07-21',desc:'Chill pond energy with a loud chorus. Frogs hop between missions and croak the loudest in every war.'},
   {id:'duck',name:'Duck Tribe',ticker:'DUCK',level:7,members:4900,treasury:207000,activity:43,power:6402,mascot:'duck',theme:'duck',created:'2026-08-03',desc:'Calm on the surface, paddling hard underneath. Ducks build steadily and fly in formation.'},
   {id:'cat',name:'Cat Tribe',ticker:'CAT',level:6,members:3800,treasury:142000,activity:37,power:4981,mascot:'cat',theme:'cat',created:'2026-08-19',desc:'Independent, stylish, and always landing on their feet. Cats show up late and still steal the spotlight.'},
   {id:'alien',name:'Alien Tribe',ticker:'ALIEN',level:5,members:2600,treasury:96000,activity:37,power:3890,mascot:'alien',theme:'alien',created:'2026-09-12',desc:'Just landed on Robinhood Chain. Alien Tribe recruits from every galaxy and speaks fluent meme.'},
-  {id:'penguin',name:'Penguin Tribe',ticker:'PENGUIN',level:8,members:5400,treasury:251000,activity:58,power:7310,mascot:'blob',image:'brand/chars/penguin-face.webp',theme:'night',created:'2026-08-11',desc:'Cool heads in any market. Penguins waddle in formation and slide past every dip together.'},
-  {id:'taco',name:'Taco Tribe',ticker:'TACO',level:6,members:4100,treasury:176000,activity:61,power:6880,mascot:'blob',theme:'pizza',created:'2026-08-27',desc:'Crunchy on the outside, loyal on the inside. Taco Tuesday is every day for this crew.'},
-  {id:'moon',name:'Moon Tribe',ticker:'MOON',level:4,members:2200,treasury:88000,activity:44,power:3420,mascot:'blob',theme:'cat',created:'2026-09-05',desc:'Always pointing up. Moon Tribe keeps the charts and the vibes in orbit.'},
-  {id:'gem',name:'Gem Tribe',ticker:'GEM',level:3,members:1900,treasury:71000,activity:40,power:3150,mascot:'blob',theme:'mint',created:'2026-09-18',desc:'Found early, held long. Gem Tribe polishes its bags and never sells the shine.'}
+  {id:'penguin',pair:'COIN',name:'Penguin Tribe',ticker:'PENGUIN',level:8,members:5400,treasury:251000,activity:58,power:7310,mascot:'blob',image:'brand/chars/penguin-face.webp',theme:'night',created:'2026-08-11',desc:'Cool heads in any market. Penguins waddle in formation and slide past every dip together.'},
+  {id:'taco',pair:'SPY',name:'Taco Tribe',ticker:'TACO',level:6,members:4100,treasury:176000,activity:61,power:6880,mascot:'blob',theme:'pizza',created:'2026-08-27',desc:'Crunchy on the outside, loyal on the inside. Taco Tuesday is every day for this crew.'},
+  {id:'moon',pair:'NVDA',name:'Moon Tribe',ticker:'MOON',level:4,members:2200,treasury:88000,activity:44,power:3420,mascot:'blob',theme:'cat',created:'2026-09-05',desc:'Always pointing up. Moon Tribe keeps the charts and the vibes in orbit.'},
+  {id:'gem',pair:'GLD',name:'Gem Tribe',ticker:'GEM',level:3,members:1900,treasury:71000,activity:40,power:3150,mascot:'blob',theme:'mint',created:'2026-09-18',desc:'Found early, held long. Gem Tribe polishes its bags and never sells the shine.'}
 ];
 const BASE_WARS = [
   {id:'banana-pizza',a:'banana',b:'pizza',pa:12842,pb:10521,partA:1204,partB:987,hours:30},
@@ -1606,6 +1653,46 @@ const Data = {
 /* Demo market: each token gets a virtual constant-product pool (1% fee) that
    demo trades move. Replace with pool reads once contracts exist. */
 const ETH_USD = 3000;
+/* Pairs. A tribe's pool can be paired with ETH or with a tokenized stock on Robinhood Chain.
+   Stock prices refresh from /api/stocks (read from each stock's pool on-chain); these are fallbacks. */
+const STOCKS = [
+  { s:'NVDA', n:'NVIDIA', addr:'0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC', usd:231 },
+  { s:'TSLA', n:'Tesla', addr:'0x322F0929c4625eD5bAd873c95208D54E1c003b2d', usd:359 },
+  { s:'AAPL', n:'Apple', addr:'0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9', usd:337 },
+  { s:'META', n:'Meta', addr:'0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35', usd:722 },
+  { s:'COIN', n:'Coinbase', addr:'0x6330D8C3178a418788dF01a47479c0ce7CCF450b', usd:195 },
+  { s:'MSTR', n:'Strategy', addr:'0xec262a75e413fAfD0dF80480274532C79D42da09', usd:160 },
+  { s:'SPY', n:'S&P 500 ETF', addr:'0x117cc2133c37B721F49dE2A7a74833232B3B4C0C', usd:768 },
+  { s:'QQQ', n:'Nasdaq-100 ETF', addr:'0xD5f3879160bc7c32ebb4dC785F8a4F505888de68', usd:740 },
+  { s:'GLD', n:'Gold ETF', addr:'0xC9a981FEE1F9DEc688bb123ccDeCc63D0deBFC4e', usd:383 }
+];
+const ETH_ICON = '<svg class="qicon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#627EEA"/><path fill="#fff" d="M12 3.5v6.3l5.3 2.4L12 3.5Zm0 0-5.3 8.7 5.3-2.4V3.5Zm0 12.8v4.2l5.3-7.4-5.3 3.2Zm0 4.2v-4.2l-5.3-3.2 5.3 7.4Zm0-5.2 5.3-3.1-5.3-2.4v5.5Zm-5.3-3.1 5.3 3.1V9.8l-5.3 2.4Z"/></svg>';
+const Quote = {
+  live: false,
+  list(){ return ['ETH', ...STOCKS.map(x => x.s)]; },
+  get(sym){ return STOCKS.find(x => x.s === sym); },
+  of(t){ return t && t.pair && Quote.get(t.pair) ? t.pair : 'ETH'; },
+  usd(sym){ const x = Quote.get(sym); return x ? x.usd : ETH_USD; },
+  toEth(sym, amt){ return amt * Quote.usd(sym) / ETH_USD; },
+  fromEth(sym, eth){ return eth * ETH_USD / Quote.usd(sym); },
+  icon(sym){ return Quote.get(sym) ? `<img class="qicon" src="brand/stocks/${sym}.png" alt="">` : ETH_ICON; },
+  fmt(sym, v){ return sym === 'ETH' ? fmtEth(v) : (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFixed(4)).replace(/\.?0+$/, '') || '0'; },
+  // demo balance: 1 ETH, or about $3,000 worth of a stock
+  bal(sym){
+    if (sym === 'ETH') return TribeAPI.demoEth();
+    if (S.qbal[sym] == null) { S.qbal[sym] = Math.round(3000 / Quote.usd(sym) * 100) / 100; store.save(); }
+    return S.qbal[sym];
+  },
+  setBal(sym, v){ if (sym === 'ETH') S.eth = v; else S.qbal[sym] = v; },
+  faucet(sym){ return sym === 'ETH' ? 1 : Math.round(3000 / Quote.usd(sym) * 100) / 100; },
+  async load(){
+    try {
+      const r = await Remote.req('GET', '/stocks');
+      for (const x of (r && r.stocks) || []) { const st = Quote.get(x.symbol); if (st && x.usd > 0) st.usd = x.usd; }
+      Quote.live = true; return true;
+    } catch (e) { return false; }
+  }
+};
 const Market = {
   supply(t){ return t.supply || 1e9; },
   seed(id){ return [...id].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7); },
@@ -1733,7 +1820,7 @@ const Remote = {
   toTribe(r){
     return { id: r.id, name: r.name, ticker: r.ticker, level: 1, members: 1, treasury: 0, activity: 1, power: 100, mascot: r.mascot, image: r.image_url || null,
       theme: r.palette, created: String(r.created_at).slice(0,10), createdAt: Date.parse(r.created_at) || Date.now(), desc: r.description, custom: true, demo: true, remote: true,
-      supply: Number(r.supply), creator: r.creator, links: Object.assign({ x: '', web: '', tg: '' }, r.links) };
+      supply: Number(r.supply), pair: r.pair || 'ETH', creator: r.creator, links: Object.assign({ x: '', web: '', tg: '' }, r.links) };
   },
   async load(){
     try {
@@ -1772,7 +1859,7 @@ const TribeAPI = {
   async createTribe(d){
     // Real version: call TRIBE_CONTRACTS.factory.createTribe(name, ticker, metadataURI)
     try {
-      const r = await Remote.req('POST', '/tribes', { name: d.name.trim(), ticker: d.ticker, desc: d.desc.trim(), mascot: d.mascot, palette: d.palette, supply: d.supply,
+      const r = await Remote.req('POST', '/tribes', { name: d.name.trim(), ticker: d.ticker, desc: d.desc.trim(), mascot: d.mascot, palette: d.palette, supply: d.supply, pair: d.pair || 'ETH',
         image: d.image || null, links: Links.all(d), creator: S.wallet ? S.wallet.address : null });
       const t = Object.assign(Remote.toTribe(r.tribe), { remote: false, shared: true });
       S.editKeys[t.id] = r.editKey; S.custom.push(t); store.save();
@@ -1781,7 +1868,7 @@ const TribeAPI = {
     } catch (e) { if (!e.offline) throw e; }
     const t = { id: d.ticker.toLowerCase(), name: d.name.trim(), ticker: d.ticker, level: 1, members: 1, treasury: 0, activity: 1, power: 100,
       mascot: d.mascot, image: d.image || null, theme: d.palette, created: new Date().toISOString().slice(0,10), createdAt: Date.now(), desc: d.desc.trim(), custom: true, demo: true,
-      supply: d.supply, creator: S.wallet ? S.wallet.address : null, links: Links.all(d) };
+      supply: d.supply, pair: d.pair || 'ETH', creator: S.wallet ? S.wallet.address : null, links: Links.all(d) };
     S.custom.push(t); store.save(); return t;
   },
   async joinTribe(id){ if (!S.joined.includes(id)) S.joined.push(id); store.save(); return true; },
@@ -1789,15 +1876,18 @@ const TribeAPI = {
   demoEth(){ if (S.eth == null) { S.eth = 1; store.save(); } return S.eth; },
   async trade(id, side, amount){
     // Real version: swap through the token's pool on Robinhood Chain.
-    const t = Data.get(id), have = S.holdings[id] || 0, eth = TribeAPI.demoEth();
+    const t = Data.get(id), have = S.holdings[id] || 0, pair = Quote.of(t), bal = Quote.bal(pair);
     if (!(amount > 0)) throw new Error('Enter an amount above zero.');
-    if (side === 'buy' && amount > eth + 1e-12) throw new Error(`You have ${fmtEth(eth)} demo ETH.`);
+    if (side === 'buy' && amount > bal + 1e-12) throw new Error(`You have ${Quote.fmt(pair, bal)} demo ${pair}.`);
     if (side === 'sell' && amount > have * (1 + 1e-9)) throw new Error(`You hold ${fmtTok(have)} $${t.ticker}.`);
-    const p = Object.assign({}, Market.pool(t)), q = Market.quote(t, side, amount);
-    if (side === 'buy') { p.e += amount * 0.99; p.t -= q.out; S.eth = eth - amount; S.holdings[id] = have + q.out; }
-    else { p.t += amount * 0.99; p.e -= q.out; S.eth = eth + q.out; S.holdings[id] = Math.max(0, have - amount); }
+    // the virtual pool keeps its reserve in ETH value; the pair only changes what the trader pays and receives
+    const inEth = side === 'buy' ? Quote.toEth(pair, amount) : amount;
+    const p = Object.assign({}, Market.pool(t)), q = Market.quote(t, side, inEth);
+    if (side === 'buy') { p.e += inEth * 0.99; p.t -= q.out; Quote.setBal(pair, bal - amount); S.holdings[id] = have + q.out; }
+    else { p.t += amount * 0.99; p.e -= q.out; Quote.setBal(pair, bal + Quote.fromEth(pair, q.out)); S.holdings[id] = Math.max(0, have - amount); }
     S.pools[id] = p;
-    S.trades.unshift({ id, side, eth: side === 'buy' ? amount : q.out, tok: side === 'buy' ? q.out : amount, at: Date.now(), who: S.wallet.address });
+    if (side === 'sell') q.outQ = Quote.fromEth(pair, q.out);
+    S.trades.unshift({ id, side, eth: side === 'buy' ? inEth : q.out, qa: side === 'buy' ? amount : q.outQ, pair, tok: side === 'buy' ? q.out : amount, at: Date.now(), who: S.wallet.address });
     S.trades = S.trades.slice(0, 200);
     store.save();
     return q;
@@ -2273,7 +2363,7 @@ function TribePage(id){
         <div class="split"><i style="width:${Math.round(war.pa/(war.pa+war.pb)*100)}%;background:${Data.theme(Data.get(war.a)).chip}"></i><i style="flex:1;background:${Data.theme(Data.get(war.b)).chip}"></i></div>
         <div class="split-l"><span>${fmtN(war.pa)}</span><span data-countdown="${war.end}">${countdown(war.end)}</span><span>${fmtN(war.pb)}</span></div>
         <a class="btn btn-dark btn-sm" style="margin-top:14px" href="#wars">Open war ${ARROW}</a></section>` : ''}
-      ${t.supply ? `<section class="panel"><div class="panel-head">${ICONS.bag().replace('<svg','<svg class="ico" style="color:var(--green);width:26px;height:26px"')}<div><h3>Token</h3><small>$${esc(t.ticker)} · not deployed yet</small></div></div>${TokenFacts(t.supply)}${t.creator ? `<p class="mnote">Creator: <span class="mono">${short(t.creator)}</span></p>` : ''}</section>` : ''}
+      ${t.supply ? `<section class="panel"><div class="panel-head">${ICONS.bag().replace('<svg','<svg class="ico" style="color:var(--green);width:26px;height:26px"')}<div><h3>Token</h3><small>$${esc(t.ticker)} · not deployed yet</small></div></div>${TokenFacts(t.supply, Quote.of(t), t.ticker)}${t.creator ? `<p class="mnote">Creator: <span class="mono">${short(t.creator)}</span></p>` : ''}</section>` : ''}
       <section class="panel"><div class="panel-head">${ICONS.starSm().replace('<svg','<svg class="ico"')}<div><h3>Tribe missions</h3><small>Earn XP for ${esc(t.name)}</small></div></div>
         ${tm.map(([n, xp, act]) => `<button class="mini-m act" data-action="${act}" data-id="${t.id}"><span style="flex:1;font-weight:700">${n}</span><span class="xp">+${xp} XP</span></button>`).join('')}
         <a class="btn btn-ghost btn-sm" style="margin-top:12px" href="#missions">All missions ${ARROW}</a></section>
@@ -2440,7 +2530,7 @@ function RTRegisterModal(err, v = {}){
     <button class="btn btn-lime" style="width:100%;justify-content:center;margin-top:10px" data-action="rt-register-go">Register <span class="lvl" style="background:#1B1B1B;color:#C4F135;margin-left:6px">DEMO</span></button>`;
 }
 
-let mkSort = 'trending', mkQuery = '';
+let mkSort = 'trending', mkQuery = '', mkPair = 'all';
 function MarketPage(){
   const all = Data.tribes();
   const sorts = { trending:'Trending', gainers:'Top gainers', mcap:'Market cap', volume:'Volume', newest:'New' };
@@ -2451,7 +2541,9 @@ function MarketPage(){
       <div class="mstat"><small>Total market cap</small><b class="num">${fmtUSD(mcap)}</b></div>
       <div class="mstat"><small>24h volume</small><b class="num">${fmtUSD(vol)}</b></div>
       <div class="mstat"><small>Tokens</small><b class="num">${all.length}</b></div>
+      <div class="mstat"><small>Stock pairs</small><b class="num">${all.filter(t => Quote.of(t) !== 'ETH').length}</b></div>
     </div>
+    <div class="chips pairchips">${[['all','All pairs'],['ETH','ETH pairs'],['stock','Stock pairs']].map(([k, v]) => `<button class="chip ${mkPair===k?'on':''}" data-action="mk-pair" data-pair="${k}">${v}</button>`).join('')}</div>
     <div class="tools">
       <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="mkFilter" type="search" placeholder="Search name or $TICKER" value="${esc(mkQuery)}" aria-label="Search tokens"></div>
@@ -2464,10 +2556,10 @@ function renderMarket(){
   const q = mkQuery.trim().toLowerCase().replace(/^\$/, '');
   const f = { trending:(a,b)=>Market.volUsd(b)-Market.volUsd(a), gainers:(a,b)=>Market.change(b)-Market.change(a), mcap:(a,b)=>Market.mcapUsd(b)-Market.mcapUsd(a),
     volume:(a,b)=>Market.volUsd(b)-Market.volUsd(a), newest:(a,b)=>(b.createdAt||Date.parse(b.created))-(a.createdAt||Date.parse(a.created)) }[mkSort];
-  const list = Data.tribes().filter(t => !q || t.name.toLowerCase().includes(q) || t.ticker.toLowerCase().includes(q)).sort(f);
+  const list = Data.tribes().filter(t => (!q || t.name.toLowerCase().includes(q) || t.ticker.toLowerCase().includes(q)) && (mkPair === 'all' || (mkPair === 'ETH') === (Quote.of(t) === 'ETH'))).sort(f);
   $('#mkList').innerHTML = `<div class="mrow mhead"><span>Token</span><span class="spark-c">24h</span><span class="num-r">Price</span><span class="num-r">24h %</span><span class="num-r hide-m">Market cap</span><span class="num-r hide-m">Volume</span></div>`
     + (list.length ? list.map(t => `<a class="mrow" href="#trade-${t.id}">
-      <span class="tn"><span class="lav" style="${themeVars(t)}">${Avatar(t)}</span><span style="min-width:0"><b>${esc(t.name)}</b><small>$${esc(t.ticker)}${t.demo ? ' · new' : ''}</small></span></span>
+      <span class="tn"><span class="lav" style="${themeVars(t)}">${Avatar(t)}</span><span style="min-width:0"><b>${esc(t.name)}</b><small>$${esc(t.ticker)} <span class="pairtag">${Quote.icon(Quote.of(t))}${Quote.of(t)}</span>${t.demo ? ' · new' : ''}</small></span></span>
       <span class="spark-c">${Spark(t)}</span>
       <span class="num-r">${fmtPrice(Market.priceUsd(t))}</span>
       <span class="num-r">${fmtPct(Market.change(t))}</span>
@@ -2478,26 +2570,26 @@ function renderMarket(){
 
 let tradeSide = 'buy', tradeAmt = '', lastTradeId = '';
 function tradeQuoteHtml(t){
-  const amt = parseFloat(tradeAmt), have = S.holdings[t.id] || 0, eth = S.eth == null ? 1 : S.eth;
-  const q = amt > 0 ? Market.quote(t, tradeSide, amt) : null;
-  const recv = q ? (tradeSide === 'buy' ? `${fmtTok(q.out)} $${esc(t.ticker)}` : `${fmtEth(q.out)} ETH`) : '—';
+  const amt = parseFloat(tradeAmt), have = S.holdings[t.id] || 0, pair = Quote.of(t), bal = pair === 'ETH' ? (S.eth == null ? 1 : S.eth) : Quote.bal(pair);
+  const q = amt > 0 ? Market.quote(t, tradeSide, tradeSide === 'buy' ? Quote.toEth(pair, amt) : amt) : null;
+  const recv = q ? (tradeSide === 'buy' ? `${fmtTok(q.out)} $${esc(t.ticker)}` : `${Quote.fmt(pair, Quote.fromEth(pair, q.out))} ${pair}`) : '—';
   return `<dl class="kv"><dt>You receive</dt><dd class="num">${recv}</dd>
     <dt>Price impact</dt><dd class="num ${q && q.impact > 5 ? 'down' : ''}">${q ? q.impact.toFixed(2) + '%' : '—'}</dd>
     <dt>Fee</dt><dd>1%</dd>
-    <dt>Your balance</dt><dd class="num">${fmtEth(eth)} ETH · ${fmtTok(have)} $${esc(t.ticker)}</dd></dl>`;
+    <dt>Your balance</dt><dd class="num">${Quote.fmt(pair, bal)} ${pair} · ${fmtTok(have)} $${esc(t.ticker)}</dd></dl>`;
 }
 function TradeBox(t){
-  const buy = tradeSide === 'buy', have = S.holdings[t.id] || 0;
-  const quick = buy ? ['0.01','0.05','0.1','0.5'].map(v => [v, v + ' ETH']) : [25, 50, 100].map(v => [v === 100 ? String(have) : String(Math.floor(have * v / 100)), v + '%']);
+  const buy = tradeSide === 'buy', have = S.holdings[t.id] || 0, pair = Quote.of(t), bal = Quote.bal(pair);
+  const quick = buy ? (pair === 'ETH' ? ['0.01','0.05','0.1','0.5'] : ['0.1','0.5','1','2']).map(v => [v, v + ' ' + pair]) : [25, 50, 100].map(v => [v === 100 ? String(have) : String(Math.floor(have * v / 100)), v + '%']);
   return `<section class="panel tbox">
     <div class="tabs" role="tablist"><button class="buy ${buy?'on':''}" data-action="trade-side" data-side="buy" aria-selected="${buy}">Buy</button><button class="sell ${buy?'':'on'}" data-action="trade-side" data-side="sell" aria-selected="${!buy}">Sell</button></div>
     <div class="field"><label for="tradeAmt">${buy ? 'You pay' : 'You sell'}</label>
-      <div class="amtwrap"><input class="inp" id="tradeAmt" inputmode="decimal" autocomplete="off" placeholder="0.0" value="${esc(tradeAmt)}"><span>${buy ? 'ETH' : '$' + esc(t.ticker)}</span></div></div>
+      <div class="amtwrap"><input class="inp" id="tradeAmt" inputmode="decimal" autocomplete="off" placeholder="0.0" value="${esc(tradeAmt)}"><span>${buy ? pair : '$' + esc(t.ticker)}</span></div></div>
     <div class="chips" style="margin:10px 0 4px">${quick.map(([v, l]) => `<button class="chip" data-action="trade-quick" data-v="${v}" ${!buy && !have ? 'disabled' : ''}>${l}</button>`).join('')}</div>
     <div id="tradeQuote">${tradeQuoteHtml(t)}</div>
     <div class="err" id="tradeErr"></div>
     <button class="btn ${buy ? 'btn-lime' : 'btn-dark'}" style="width:100%;justify-content:center;margin-top:12px" data-action="do-trade" data-id="${t.id}">${buy ? 'Buy' : 'Sell'} $${esc(t.ticker)} <span class="lvl" style="background:#1B1B1B;color:#C4F135;margin-left:6px">DEMO</span></button>
-    ${S.eth != null && S.eth < 0.01 ? `<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:8px" data-action="demo-faucet">Get 1 demo ETH</button>` : ''}
+    ${bal < Quote.faucet(pair) / 100 ? `<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:8px" data-action="demo-faucet" data-pair="${pair}">Get ${Quote.fmt(pair, Quote.faucet(pair))} demo ${pair}</button>` : ''}
     <p class="mnote">Demo trading: balances and prices are simulated in this browser. Real swaps open once TRIBE contracts are deployed on Robinhood Chain.</p>
   </section>`;
 }
@@ -2511,20 +2603,22 @@ function TradePage(id){
   return `<div class="page"><div class="trade">
     <div class="stack">
       <section class="panel">
-        <div class="panel-head"><span class="lav" style="${themeVars(t)};width:48px;height:48px;flex:none">${Avatar(t)}</span><div style="min-width:0"><h3 style="margin:0">${esc(t.name)}</h3><small>$${esc(t.ticker)} · Robinhood Chain</small></div><a class="more" href="#tribe-${t.id}">Tribe page ${ARROW}</a></div>
+        <div class="panel-head"><span class="lav" style="${themeVars(t)};width:48px;height:48px;flex:none">${Avatar(t)}</span><div style="min-width:0"><h3 style="margin:0">${esc(t.name)}</h3><small>$${esc(t.ticker)} / ${Quote.of(t)} · Robinhood Chain</small></div><a class="more" href="#tribe-${t.id}">Tribe page ${ARROW}</a></div>
         ${LinkButtons(t, 'sm')}
         <div class="bigprice num">${fmtPrice(Market.priceUsd(t))} <small style="font-size:16px">${fmtPct(Market.change(t))}</small></div>
-        <small style="color:var(--muted)" class="num">${Market.price(t).toFixed(12).replace(/0+$/, '')} ETH per token</small>
+        <small style="color:var(--muted)" class="num">${Quote.fromEth(Quote.of(t), Market.price(t)).toPrecision(4)} ${Quote.of(t)} per token${Quote.of(t) !== 'ETH' ? ` · ${Quote.of(t)} ${fmtPrice(Quote.usd(Quote.of(t)))}${Quote.live ? ' live' : ''}` : ''}</small>
         ${Spark(t, 'chart', 600, 200)}
         <div class="mstats" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:0">
           <div class="mstat"><small>Market cap</small><b class="num">${fmtUSD(Market.mcapUsd(t))}</b></div>
           <div class="mstat"><small>Liquidity</small><b class="num">${fmtUSD(Market.liqUsd(t))}</b></div>
           <div class="mstat"><small>24h volume</small><b class="num">${fmtUSD(Market.volUsd(t))}</b></div>
           <div class="mstat"><small>Supply</small><b class="num">${fmtK(Market.supply(t))}</b></div>
+          <div class="mstat"><small>Pair</small><b class="num pairb">${Quote.icon(Quote.of(t))} ${Quote.of(t)}</b></div>
+          <div class="mstat"><small>${Quote.of(t)} price</small><b class="num">${fmtPrice(Quote.usd(Quote.of(t)))}</b></div>
         </div>
       </section>
       <section class="panel"><div class="panel-head"><h3>Recent trades</h3></div>
-        ${rows.length ? rows.map(r => `<div class="trow"><span class="${r.side === 'buy' ? 'up' : 'down'}" style="font-weight:800;width:40px">${r.side === 'buy' ? 'Buy' : 'Sell'}</span><span class="num">${fmtEth(r.eth)} ETH</span><span class="num t-tok">${fmtTok(r.tok)}</span><span class="mono t-who" style="color:var(--muted)">${r.who === (S.wallet && S.wallet.address) ? 'you' : esc(r.who.length > 14 ? short(r.who) : r.who)}</span><span style="color:var(--muted)">${timeAgo(r.at)}</span></div>`).join('')
+        ${rows.length ? rows.map(r => `<div class="trow"><span class="${r.side === 'buy' ? 'up' : 'down'}" style="font-weight:800;width:40px">${r.side === 'buy' ? 'Buy' : 'Sell'}</span><span class="num">${Quote.fmt(r.pair || Quote.of(t), r.qa != null ? r.qa : Quote.fromEth(Quote.of(t), r.eth))} ${r.pair || Quote.of(t)}</span><span class="num t-tok">${fmtTok(r.tok)}</span><span class="mono t-who" style="color:var(--muted)">${r.who === (S.wallet && S.wallet.address) ? 'you' : esc(r.who.length > 14 ? short(r.who) : r.who)}</span><span style="color:var(--muted)">${timeAgo(r.at)}</span></div>`).join('')
           : '<p class="mnote">No trades yet. Be the first.</p>'}
       </section>
     </div>
@@ -2537,9 +2631,10 @@ function holdingsHtml(){
   const eth = S.eth == null ? 1 : S.eth, total = held.reduce((a, [t, n]) => a + n * Market.priceUsd(t), 0);
   return `<div class="mlist"><div class="mrow mhead hold"><span>Token</span><span class="num-r">Amount</span><span class="num-r">Value</span></div>
     <div class="mrow hold"><span class="tn"><b>ETH</b><small style="margin-left:6px">demo</small></span><span class="num-r">${fmtEth(eth)}</span><span class="num-r">${fmtUSD(eth * ETH_USD)}</span></div>
+    ${STOCKS.filter(x => S.qbal[x.s] > 0).map(x => `<div class="mrow hold"><span class="tn"><span class="pairb">${Quote.icon(x.s)} <b>${x.s}</b></span><small style="margin-left:6px">demo</small></span><span class="num-r">${Quote.fmt(x.s, S.qbal[x.s])}</span><span class="num-r">${fmtUSD(Math.round(S.qbal[x.s] * x.usd))}</span></div>`).join('')}
     ${held.map(([t, n]) => `<a class="mrow hold" href="#trade-${t.id}"><span class="tn"><span class="lav" style="${themeVars(t)}">${Avatar(t)}</span><span style="min-width:0"><b>${esc(t.name)}</b><small>$${esc(t.ticker)}</small></span></span><span class="num-r">${fmtTok(n)}</span><span class="num-r">${fmtUSD(Math.round(n * Market.priceUsd(t)))}</span></a>`).join('')}
     ${held.length ? '' : `<div class="empty" style="margin:12px">No tokens yet. <a href="#market" style="color:var(--green);font-weight:800">Open the Market →</a></div>`}
-    <div class="mrow hold" style="font-weight:800"><span>Total</span><span></span><span class="num-r">${fmtUSD(Math.round(total + eth * ETH_USD))}</span></div></div>`;
+    <div class="mrow hold" style="font-weight:800"><span>Total</span><span></span><span class="num-r">${fmtUSD(Math.round(total + eth * ETH_USD + STOCKS.reduce((a, x) => a + (S.qbal[x.s] || 0) * x.usd, 0)))}</span></div></div>`;
 }
 function ProfilePage(){
   if (!S.wallet) return `<div class="page">
@@ -2606,14 +2701,16 @@ function MissionsPage(){
 const STEPS = ['Name','Ticker','Mascot','Colors','Describe','Token','Review','Launch'];
 const SUPPLIES = [100e6, 1e9, 10e9];
 function draft(){
-  if (!S.draft) S.draft = { step: 1, name: '', ticker: '', mascot: 'blob', image: null, palette: 'mint', desc: '', supply: 1e9, launched: null };
+  if (!S.draft) S.draft = { step: 1, name: '', ticker: '', mascot: 'blob', image: null, palette: 'mint', desc: '', supply: 1e9, pair: 'ETH', launched: null };
   // drafts saved before the Token step existed
   if (S.draft.supply == null) S.draft.supply = 1e9;
+  if (!S.draft.pair) S.draft.pair = 'ETH';
   return S.draft;
 }
 // Fixed split: 80% seeds the pool, 20% is the war chest (four 5% stakes). The creator gets no allocation.
-function TokenFacts(supply){
+function TokenFacts(supply, pair = 'ETH', ticker = 'TICKER'){
   return `<dl class="kv tok-sum"><dt>Total supply</dt><dd class="num">${fmtN(supply)}</dd>
+    <dt>Pool pair</dt><dd class="pairb">${Quote.icon(pair)} $${esc(ticker)} / ${pair}</dd>
     <dt>Liquidity pool (80%)</dt><dd class="num">${fmtN(supply * 0.8)}</dd>
     <dt>War Chest (20%)</dt><dd class="num">${fmtN(supply * 0.2)}</dd>
     <dt>Per Tribe War (5%)</dt><dd class="num">${fmtN(supply * 0.05)} × 4 wars</dd>
@@ -2659,7 +2756,10 @@ function StepBody(step){
       <div class="field"><label for="fTg">Telegram</label><input class="inp" id="fTg" maxlength="80" placeholder="t.me/yourtribe" value="${esc(d.tg || '')}" data-bind="tg"></div>`;
     case 6: return `<div class="sn">Step 6 of 8</div><h2>Set up your token</h2><p class="hint">How many $${esc(d.ticker || 'TICKER')} exist. 80% seeds the liquidity pool and 20% is locked in the War Chest, won only by winning Tribe Wars. The creator gets no allocation.</p>
       <div class="opt-row"><label>Total supply</label><div class="chips" style="margin:0">${SUPPLIES.map(v => `<button class="chip ${d.supply===v?'on':''}" data-action="pick-supply" data-v="${v}" aria-pressed="${d.supply===v}">${fmtK(v)}</button>`).join('')}</div></div>
-      ${TokenFacts(d.supply)}`;
+      <div class="opt-row"><label>Pair with</label></div>
+      <p class="hint" style="margin-top:-6px">Buyers pay in this asset and the pool holds it. Pick ETH, or a tokenized stock on Robinhood Chain to back your tribe with a real-world asset.</p>
+      <div class="pairgrid">${Quote.list().map(k => `<button class="pairopt ${d.pair===k?'on':''}" data-action="pick-pair" data-v="${k}" aria-pressed="${d.pair===k}">${Quote.icon(k)}<b>${k}</b><small>${k === 'ETH' ? 'Ether' : esc(Quote.get(k).n)}</small><small class="num">${fmtPrice(Quote.usd(k))}</small></button>`).join('')}</div>
+      ${TokenFacts(d.supply, d.pair, d.ticker || 'TICKER')}`;
     case 7: return `<div class="sn">Step 7 of 8</div><h2>Review your tribe</h2><p class="hint">Check everything before launch. You can jump back to any step.</p>
       <div class="review">
         <div><small>Name</small><span>${esc(d.name)}</span><button data-action="goto" data-step="1">Edit</button></div>
@@ -2669,6 +2769,7 @@ function StepBody(step){
         <div><small>Description</small><span>${esc(d.desc)}</span><button data-action="goto" data-step="5">Edit</button></div>
         <div><small>Links</small><span>${(() => { const l = Links.all(d); return [l.x && '@' + l.x.split('/').pop(), l.web && new URL(l.web).hostname, l.tg && 't.me/' + l.tg.split('/').pop()].filter(Boolean).map(esc).join(' · ') || 'None'; })()}</span><button data-action="goto" data-step="5">Edit</button></div>
         <div><small>Token</small><span>${fmtK(d.supply)} supply · 80% liquidity · 20% War Chest</span><button data-action="goto" data-step="6">Edit</button></div>
+        <div><small>Pair</small><span>$${esc(d.ticker)} / ${d.pair}</span><button data-action="goto" data-step="6">Edit</button></div>
         <div><small>Network</small><span>Robinhood Chain · Chain ID ${ROBINHOOD_CHAIN.mainnet.chainId}</span><span></span></div>
       </div>`;
     case 8:
@@ -2929,17 +3030,18 @@ document.addEventListener('click', async e => {
       t.links = Links.all(v); store.save();
       closeModal(); render(true); toast('Links saved', true); break;
     }
+    case 'mk-pair': mkPair = el.dataset.pair; $$('[data-action=mk-pair]').forEach(c => c.classList.toggle('on', c === el)); renderMarket(); break;
     case 'mk-sort': mkSort = el.dataset.sort; $$('[data-action=mk-sort]').forEach(c => c.classList.toggle('on', c === el)); renderMarket(); break;
     case 'trade-side': tradeSide = el.dataset.side; tradeAmt = ''; render(true); break;
     case 'trade-quick': tradeAmt = el.dataset.v; $('#tradeAmt').value = tradeAmt; $('#tradeQuote').innerHTML = tradeQuoteHtml(Data.get(parseRoute().id)); $('#tradeErr').textContent = ''; break;
-    case 'demo-faucet': S.eth = (S.eth || 0) + 1; store.save(); render(true); toast('1 demo ETH added', true); break;
+    case 'demo-faucet': { const pr = el.dataset.pair || 'ETH', n = Quote.faucet(pr); Quote.setBal(pr, Quote.bal(pr) + n); store.save(); render(true); toast(`${Quote.fmt(pr, n)} demo ${pr} added`, true); break; }
     case 'do-trade': {
       const id = el.dataset.id;
       if (!requireWallet(() => render(true))) break;
       try {
         const t = Data.get(id), side = tradeSide, amt = parseFloat(tradeAmt), q = await TribeAPI.trade(id, side, amt);
         tradeAmt = ''; render(true);
-        toast(side === 'buy' ? `Bought ${fmtTok(q.out)} $${t.ticker}` : `Sold for ${fmtEth(q.out)} ETH`, true);
+        toast(side === 'buy' ? `Bought ${fmtTok(q.out)} $${t.ticker}` : `Sold for ${Quote.fmt(Quote.of(t), q.outQ)} ${Quote.of(t)}`, true);
       } catch (err) { $('#tradeErr').textContent = err.message; }
       break;
     }
@@ -2977,6 +3079,7 @@ document.addEventListener('click', async e => {
     case 'pick-mascot': draft().mascot = el.dataset.m; draft().image = null; store.save(); rerenderWizard(); break;
     case 'pick-palette': draft().palette = el.dataset.p; store.save(); rerenderWizard(); break;
     case 'pick-supply': draft().supply = +el.dataset.v; store.save(); rerenderWizard(); break;
+    case 'pick-pair': if (Quote.list().includes(el.dataset.v)) { draft().pair = el.dataset.v; store.save(); rerenderWizard(); } break;
     case 'sug': { const t = $('#fDesc'); t.value = el.dataset.s; t.dispatchEvent(new Event('input', { bubbles: true })); break; }
     case 'new-draft': S.draft = null; store.save(); rerenderWizard(); break;
     case 'launch': {
@@ -3010,6 +3113,7 @@ $('#langSlot').innerHTML = LangSelect(); $('#langSlot2').innerHTML = LangSelect(
 render(false);
 Sound.renderButton();
 Remote.load().then(changed => { if (changed) render(true); });
+Quote.load().then(ok => { if (ok && ['market','trade','profile'].includes(parseRoute().name) && !document.getElementById('modalBg')) render(true); });
 window.addEventListener('hashchange', () => {
   if (Date.now() - Remote.loadedAt < 30000) return;
   Remote.load().then(changed => { if (changed && parseRoute().name !== 'launch' && !document.getElementById('modalBg')) render(true); });
